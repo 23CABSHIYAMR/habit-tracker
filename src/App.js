@@ -1,7 +1,6 @@
 import "./App.css";
 import About from "./Screen/About/About";
 import Resume from "./Screen/Resume/Resume";
-import Layout from "./components/Layout/Layout";
 import {
   BrowserRouter as Router,
   Routes,

@@ -1,5 +1,9 @@
 import React from "react";
 import Layout from "../../components/Layout/Layout";
+import { TfiBook } from "react-icons/tfi";
+import { educationdetails } from "../../components/data/educationdetails";
+import { workdetails } from "../../components/data/workdetails";
+import ResumeContent from "./ResumeContent";
 
 function Resume() {
   return (
@@ -9,32 +13,25 @@ function Resume() {
           <h2
             className="text-[30px] font-bold mb-2 text-white1 after:content-[''] 
     after:absolute after:-bottom-1 after:left-0
-     after:rounded-lg after:w-[10%] sm:after:w-[20%] md:after:w-[10%]
-      lg:after:w-[20%] tiny:after:w-[20%] after:h-[6px] after:bg-yellow1"
+     after:rounded-lg after:w-[10%] sm:after:w-[20%] md:after:w-[10%] 
+      lg:after:w-[10%] tiny:after:w-[20%] after:h-[6px] after:bg-yellow1"
           >
             Resume
           </h2>
         </header>
-        {/* <Content /> */}
-        {/* <section className="text-white2 text-h6 font-[300] leading-1 my-4">
-        <h3 className="text-h3 text-white1 font-semibold tracking-wide">
-          What I'm Doing?
-        </h3>
-
-
-        <ul className="grid grid-cols-2 sm:grid-cols-1 lg:grid-cols-2 md:grid-cols-2 tiny:grid-cols-1 gap-6 p-2 py-8">
-         <Card />
-        </ul>
-      </section> */}
-        {/* <section className="text-white2 text-h6 font-[300] leading-1 my-4">
-    <h3 className="text-h3 text-white1 font-semibold tracking-wide">
-      Testimonials
-    </h3>
-
-    <ul className="flex justify-start items-start gap-6 p-2 overflow-x-auto service-list has-scrollbar py-8">
-      <TestimonialCard />
-    </ul>
-  </section> */}
+        <div className="w-full grid grid-cols-2 sm:grid-cols-1 tiny:grid-cols-1 md:grid-cols-2 ">
+          <ResumeContent
+            icon={<TfiBook name="Education" className="text-iconcolor" />}
+            title={"Education"}
+            data={educationdetails}
+          />
+          <ResumeContent
+            icon={<TfiBook name="Education" className="text-iconcolor" />}
+            title={"Experience"}
+            data={workdetails}
+          />
+        </div>
+        
       </div>
     </Layout>
   );

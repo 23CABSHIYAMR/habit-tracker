@@ -1,5 +1,6 @@
 import React from "react";
 import * as IoIcon from "react-icons/io5";
+import { PiDevToLogoFill } from "react-icons/pi";
 
 function Content() {
   const json = [
@@ -50,9 +51,7 @@ function Content() {
       ),
     },
     {
-      icon: (
-        <IoIcon.IoAirplane name="send-outline" className="text-iconcolor" />
-      ),
+      icon: <PiDevToLogoFill name="send-outline" className="text-iconcolor" />,
       head: "Resume",
       content: (
         // eslint-disable-next-line jsx-a11y/anchor-is-valid
