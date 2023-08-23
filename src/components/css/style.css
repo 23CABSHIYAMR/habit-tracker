@@ -1,0 +1,85 @@
+.icon-box {
+    position: relative;
+    width: 35px;
+    height: 35px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    box-shadow: 0 16px 30px hsla(0, 0%, 0%, 0.25);
+    z-index: 1;
+}
+
+.icon-box::before {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    background: gray;
+    border-radius: inherit;
+    z-index: -1;
+}
+
+.info_more-btn::before {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    border-radius: inherit;
+    background: rgb(189, 189, 189);
+    transition: 0.25s ease;
+    ;
+    z-index: -1;
+}
+
+.service-list {
+    scroll-behavior: smooth;
+    overscroll-behavior-inline: contain;
+    scroll-snap-type: inline mandatory;
+}
+
+.has-scrollbar::-webkit-scrollbar {
+    width: 5px;
+    /* for vertical scrollbar */
+    height: 5px;
+    /* for horizontal scrollbar */
+}
+
+.has-scrollbar::-webkit-scrollbar-track {
+    background: gray;
+    border-radius: 5px;
+}
+
+.has-scrollbar::-webkit-scrollbar-thumb {
+    background: white;
+    border-radius: 5px;
+}
+
+.has-scrollbar::-webkit-scrollbar-button {
+    width: 60px;
+}
+
+
+.has-scrollbar::-webkit-scrollbar-button {
+    width: 60px;
+}
+
+.active {
+    color: #ffdb70;
+
+}
+
+.active {
+    display: inline-block;
+    position: relative;
+}
+
+.active::after {
+    content: '' !important;
+    position: absolute !important;
+    width: 60% !important;
+    transform: scaleX(1) !important;
+    height: 2px !important;
+    bottom: 0 !important;
+    left: 20% !important;
+    background-color: #ffdb70 !important;
+}
