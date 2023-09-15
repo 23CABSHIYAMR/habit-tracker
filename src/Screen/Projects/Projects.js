@@ -1,13 +1,7 @@
 import React from "react";
 import Layout from "../../components/Layout/Layout";
-import { TfiBook } from "react-icons/tfi";
-import { educationdetails } from "../../components/data/educationdetails";
-import { workdetails } from "../../components/data/workdetails";
-import ResumeContent from "./ResumeContent";
-import Range from "../../components/card/Range";
-import { rangedata } from "../../components/data/rangedata";
 
-function Resume() {
+function Projects() {
   return (
     <Layout>
       <div className="w-full overflow-auto">
@@ -18,10 +12,10 @@ function Resume() {
      after:rounded-lg after:w-[10%] sm:after:w-[20%] md:after:w-[10%] 
       lg:after:w-[10%] tiny:after:w-[20%] after:h-[6px] after:bg-yellow1"
           >
-            Resume
+            Projects
           </h2>
         </header>
-        <div className="w-full grid grid-cols-2 sm:grid-cols-1 tiny:grid-cols-1 md:grid-cols-2 ">
+        {/* <div className="w-full grid grid-cols-2 sm:grid-cols-1 tiny:grid-cols-1 md:grid-cols-2 ">
           <ResumeContent
             icon={<TfiBook name="Education" className="text-iconcolor" />}
             title={"Education"}
@@ -32,18 +26,10 @@ function Resume() {
             title={"Experience"}
             data={workdetails}
           />
-        </div>
-        <section className="text-white2 text-h6 font-[300] leading-1 my-1 w-full sm:my-2 tiny:my-2 md:my-2">
-          <h3 className="text-h3 text-white1 font-semibold tracking-wide mb-2">
-            My Skills
-          </h3>
-          <ul className="grid grid-cols-1 gap-6 p-4 px-6 bg-blackgr rounded-card">
-            <Range data={rangedata} />
-          </ul>
-        </section>
+        </div> */}
       </div>
     </Layout>
   );
 }
 
-export default Resume;
+export default Projects;

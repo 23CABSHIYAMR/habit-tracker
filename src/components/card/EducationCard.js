@@ -6,7 +6,7 @@ function EducationCard(props) {
     <>
       {json.map((v) => (
         <li key={v.title} className="w-full ">
-          <div className="flex flex-col justify-center items-start rounded-lg py-2 px-6 w-full relative cursor-pointer z-1 sm:px-0 md:px-0 tiny:px-0">
+          <div className="flex flex-col justify-center items-start rounded-lg py-2 px-6 w-full relative cursor-pointer z-1 sm:px-0 md:px-0 tiny:px-0 sm:py-0 md:py-0 tiny:py-0">
             <div
               className="flex flex-col justify-center items-start w-[80%] h-full  mb-2 px-4 
             after:content-[''] after:absolute after:top-4 after:left-4 after:bg-text-active after:w-[6px] after:h-[6px] after:rounded-full

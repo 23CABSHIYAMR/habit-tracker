@@ -1,5 +1,6 @@
 import "./App.css";
 import About from "./Screen/About/About";
+import Projects from "./Screen/Projects/Projects";
 import Resume from "./Screen/Resume/Resume";
 import {
   BrowserRouter as Router,
@@ -14,6 +15,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<About />} />
           <Route path="resume" element={<Resume />} />
+          <Route path="projects" element={<Projects />} />
         </Routes>
       </Router>
     </>
