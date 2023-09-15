@@ -94,3 +94,27 @@
     border-radius: 50%;
     box-shadow: 0 0 0 4px var(--jet);
 }
+
+
+#cursor {
+    z-index: 999;
+    position: fixed;
+    top: calc(28px * -0.5);
+    left:  calc(28px * -0.5);
+    pointer-events: none;
+    mix-blend-mode: difference;
+  }
+
+  .cursor-circle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 28px;
+    background:white;
+    transform-origin: center center;
+  }
+  .goo {
+    display: none;
+  }

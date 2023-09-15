@@ -9,8 +9,12 @@ import {
   // Navigate,
 } from "react-router-dom";
 function App() {
+
   return (
     <>
+
+
+
       <Router>
         <Routes>
           <Route exact path="/" element={<About />} />
