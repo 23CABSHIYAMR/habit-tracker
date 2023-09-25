@@ -13,6 +13,7 @@ function Content() {
         <a
           href="mailto:rahuldev1320@gmail.com"
           className="text-white1 text-[13px]"
+          target="__blank"
         >
           rahuldev1320@gmail.com
         </a>

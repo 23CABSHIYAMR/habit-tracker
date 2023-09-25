@@ -3,7 +3,7 @@ import * as IoIcon from "react-icons/io5";
 export const educationdetails = [
   {
     icon: <IoIcon.IoCodeOutline name="web-code" className="text-iconcolor" />,
-    title: "RVS Matric Higher Secondary School",
+    title: "RVS College of Arts and Science",
     studied: "Bachelor of Computer Applications",
     year: "2020 - 2023",
   },

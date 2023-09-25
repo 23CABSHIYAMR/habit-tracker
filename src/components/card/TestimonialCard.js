@@ -27,7 +27,7 @@ function TestimonialCard() {
         />
       ),
       title: "Mobile App Development",
-      quote: `"Create, curate, teach. That’s the way I code"`,
+      quote: `"Create, organize. That’s the way I code"`,
       para: `Professional development of applications for iOS and Android.`,
     },
   ];
