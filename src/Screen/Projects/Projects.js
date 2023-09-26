@@ -25,10 +25,9 @@ function Projects() {
               key={v}
               className={`${
                 catergory === v ? "text-text-active " : "text-lightgray "
-              }text-center  text-base py-[2px]`}
+              }text-center  text-base py-[2px] cursor-pointer`}
               onClick={() => {
                 setCategory(v);
-
                 let filter =
                   v !== "All"
                     ? projectdetails.filter((x) => x.category === v)
@@ -41,7 +40,7 @@ function Projects() {
             </div>
           ))}
         </div>
-        <div className="w-full grid grid-cols-3 sm:grid-cols-2 gap-4 tiny:grid-cols-2 md:grid-cols-3 ">
+        <div className="w-full grid grid-cols-3 sm:grid-cols-1 gap-4 tiny:grid-cols-1 md:grid-cols-2 ">
           <ProjectCard data={data} />
         </div>
       </div>
