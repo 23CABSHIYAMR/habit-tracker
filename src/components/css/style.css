@@ -161,3 +161,40 @@
 .project-item>a:hover img {
     transform: scale(1.1);
 }
+iframe {
+    border: none;
+    filter: grayscale(1) invert(1);
+}
+
+.inputborder {
+    border: 1px solid #d6d6d6;
+}
+
+
+.form-btn::before {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    background: linear-gradient(to bottom right,
+            hsla(240, 1%, 18%, 0.251) 0%,
+            hsla(240, 2%, 11%, 0) 100%), hsl(240, 2%, 13%);
+    border-radius: inherit;
+    z-index: -1;
+    transition: 0.25s ease;
+}
+
+.form-btn ion-icon {
+    font-size: 16px;
+}
+
+.form-btn:hover {
+    background:linear-gradient(to bottom right,
+    hsl(45, 100%, 71%) 0%,
+    hsla(36, 100%, 69%, 0) 35%);
+}
+
+.form-btn:hover::before {
+    background: linear-gradient(135deg,
+            hsla(45, 100%, 71%, 0.251) 0%,
+            hsla(35, 100%, 68%, 0) 59.86%), hsl(240, 2%, 13%);
+}

@@ -11,7 +11,7 @@ function ProjectCard(props) {
               <figure className="project-img actives block before:content-[''] before:absolute before:top-0 before:left-0 before:w-full before:h-full z-1">
                 <img
                   src={v.img}
-                  className="w-[100%] sm:w-[80%] tiny:w-[80%] md:w-[80%] h-[200px] rounded-md "
+                  className="w-[100%]  h-[200px] rounded-md "
                   alt="matirx"
                 />
               </figure>

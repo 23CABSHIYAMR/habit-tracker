@@ -24,6 +24,7 @@ module.exports = {
       ctr: "12px 12px 12px 1px rgb(0 0 0 / 0.1)",
       card: "8px 3px 6px 0px rgb(0 0 0 / 40%)",
       card2: "2px 9px 5px 0px rgb(0 0 0 / 20%)",
+      btn:"0 16px 40px hsla(0, 0%, 0%, 0.125)"
     },
     fontSize: {
       sm: "12px",
@@ -53,6 +54,11 @@ module.exports = {
   hsla(240, 1%, 18%, 0.251) 0%, 
   hsla(240, 2%, 11%, 0) 100%
 ), hsl(240, 2%, 13%)`,
+onyx:`linear-gradient(
+  to bottom right, 
+  hsl(0, 0%, 25%) 0%, 
+  hsla(0, 0%, 25%, 0) 50%
+)`
     },
     colors: {
       primary: "#282828",
