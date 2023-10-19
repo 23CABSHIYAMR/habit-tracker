@@ -7,7 +7,7 @@ function ProjectCard(props) {
       {props.data.map((v) => (
         <div className="py-1 rounded-md ">
           <div className="rounded-md w-full h-full flex flex-col items-center project-item ">
-            <a href="#" className="w-full">
+            <a href={v?.link ?? ""} className="w-full" target="__blank">
               <figure className="project-img actives block before:content-[''] before:absolute before:top-0 before:left-0 before:w-full before:h-full z-1">
                 <img
                   src={v.img}

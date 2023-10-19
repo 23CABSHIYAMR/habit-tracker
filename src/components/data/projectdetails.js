@@ -10,20 +10,24 @@ export const projectdetails = [
     title: "Bad Bank",
     category: "Application",
     img: badbank,
+    link: "http://localhost:3001",
   },
   {
     title: "Chat App",
     category: "Application",
     img: matrix,
+    link: "http://localhost:3002",
   },
   {
-    title: "Portfolio",
-    category: "Web Design",
+    title: "npm Package",
+    category: "Application",
     img: portfolio,
+    link: "https://www.npmjs.com/package/responsive_modal_popup",
   },
   {
     title: "Service Desk",
-    category: "Application",
+    category: "Web Design",
     img: servicedesk,
+    link: "http://localhost:3003",
   },
 ];

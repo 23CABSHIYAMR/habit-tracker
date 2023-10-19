@@ -11,7 +11,10 @@ function Projects() {
       <div className="w-full overflow-auto px-4">
         <header className="relative my-2">
           <h2
-            className="text-[30px] font-bold mb-2 text-white1 "
+            className="text-[30px] font-bold mb-2 text-white1 after:content-[''] 
+            after:absolute after:-bottom-1 after:left-0
+             after:rounded-lg after:w-[10%] sm:after:w-[20%] md:after:w-[10%] 
+              lg:after:w-[10%] tiny:after:w-[20%] after:h-[6px] after:bg-yellow1"
           >
             Projects
           </h2>
