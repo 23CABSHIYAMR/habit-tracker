@@ -34,6 +34,7 @@ export default function AppLayout() {
 
   const [statusUpdated, setStatusUpdated] = useState(IsoDate(today));
   const triggerFetch = () => {
+        logFetcherRef.current.resetAllData();
     setnewHabitAdded((prev) => !prev);
   };
   const [slideInMenu, setSlideInMenu] = useState(false);
