@@ -3,6 +3,8 @@ import axios from "axios";
 const API_BASE = "https://habit-tracker-server-bx61.onrender.com/habits";
 
 export const fetchHabits = async () => {
+
+  
   try {
     const res = await axios.get(API_BASE);
     return res.data;
