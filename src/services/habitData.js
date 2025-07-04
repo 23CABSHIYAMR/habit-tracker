@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE = "http://localhost:5000/habits";
+const API_BASE = "https://habit-tracker-server-bx61.onrender.com/habits";
 
 export const fetchHabits = async () => {
   try {
