@@ -76,7 +76,7 @@ class LogFetcher {
       if (!nextDateLog || nextDateLog.status !== "completed") break;
 
       const dayIndex = nextDate.getDay(); // Sunday = 0
-      const weekFrequency = nextDateLog.habitId.weekFrequency;
+      const weekFrequency = nextDateLog?.habitId?.weekFrequency;
       if (!weekFrequency || !weekFrequency[dayIndex]) break;
 
       streak += 1;
@@ -139,7 +139,7 @@ class LogFetcher {
     }
     const isEmpty = !(this.weekDataCache[weekKey].length > 0);
     if (isEmpty && retry <= 1) {
-      await this.prefetchMonthSurroundings(weekRange[0]);
+      await this?.prefetchMonthSurroundings(weekRange[0]);
       const weekLogs = await this.getWeeklyLogs(weekRange);
       this.weekDataCache[weekKey] = weekLogs;
     }
@@ -152,7 +152,7 @@ class LogFetcher {
     const isBoundaryWeek = weekStart.getDate() > 21 || weekEnd.getDate() < 7;
 
     if (isBoundaryWeek) {
-      await this.prefetchMonthSurroundings(weekStart);
+      await this?.prefetchMonthSurroundings(weekStart);
       const { raw = [] } = await getLogsForWeek(getWeekKey(weekStart));
       const grouped = this.groupLogsByHabit(raw);
       return grouped;

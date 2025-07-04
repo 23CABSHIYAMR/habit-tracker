@@ -34,7 +34,7 @@ function toggleStatus(log, e) {
           return timeA - timeB;
         })
         .map((log, i) => 
-          log.habitId.weekFrequency[new Date(log.date).getDay()] ? (
+          log.habitId?.weekFrequency[new Date(log.date).getDay()] ? (
             <button
               key={`${log.habitId._id}-${log.date}-${i}`}
               type="button"

@@ -44,7 +44,7 @@ export default function AppLayout() {
   useEffect(() => {
     const dateStr = selectedDate.toISOString().slice(0, 7);
     if (!logFetcherRef.current.prefetchedMonths.has(dateStr)) {
-      logFetcherRef.current.prefetchMonthSurroundings(selectedDate);
+      logFetcherRef.current?.prefetchMonthSurroundings(selectedDate);
     }
   }, [selectedDate]);
 
@@ -68,7 +68,7 @@ export default function AppLayout() {
   useEffect(() => {
     logFetcherRef.current.resetAllData();
     (async () => {
-      await logFetcherRef.current.prefetchMonthSurroundings(selectedDate);
+      await logFetcherRef.current?.prefetchMonthSurroundings(selectedDate);
       const newData = await getLogForDate(selectedDate);
       setLogData(newData);
     })();
@@ -111,7 +111,7 @@ export default function AppLayout() {
     await deleteHabit(habits.habitId._id);
     logFetcherRef.current.resetAllData();
 
-    await logFetcherRef.current.prefetchMonthSurroundings(selectedDate);
+    await logFetcherRef.current?.prefetchMonthSurroundings(selectedDate);
     const newData = await logFetcherRef.current.getLogsByDate(selectedDate);
     setLogData(newData);
   }, []);

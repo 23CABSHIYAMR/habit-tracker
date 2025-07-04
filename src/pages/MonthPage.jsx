@@ -27,7 +27,7 @@ export default function MonthPage() {
     setmonthLog([]);
     setProgress(0);
 
-    logFetcherRef.current.prefetchMonthSurroundings(month);
+    logFetcherRef.current?.prefetchMonthSurroundings(month);
   }, [month]);
 
   const [displayType, setDisplayType] = useState("grid");
@@ -52,7 +52,7 @@ export default function MonthPage() {
     const freqList = monthlyLogs?.map((habitLogs) =>
       habitLogs.reduce((acc, log) => {
         const day = new Date(log.date);
-        return acc + (log.habitId.weekFrequency[day.getDay()] ? 1 : 0);
+        return acc + (log.habitId?.weekFrequency[day.getDay()] ? 1 : 0);
       }, 0)
     );
     const completedList = monthlyLogs?.map((habitLogs) => {
@@ -60,7 +60,7 @@ export default function MonthPage() {
         const day = new Date(log.date);
         return (
           acc +
-          (log.status === "completed" && log.habitId.weekFrequency[day.getDay()]
+          (log.status === "completed" && log.habitId?.weekFrequency[day.getDay()]
             ? 1
             : 0)
         );
@@ -84,7 +84,7 @@ export default function MonthPage() {
   useEffect(() => {
     const startDate = new Date(month);
     (async () => {
-      await logFetcherRef.current.prefetchMonthSurroundings(startDate);
+      await logFetcherRef.current?.prefetchMonthSurroundings(startDate);
       await loadFullMonthLogs();
     })();
   }, [month, newHabitAdded, loadFullMonthLogs]);

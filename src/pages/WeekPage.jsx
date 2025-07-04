@@ -63,7 +63,7 @@ export default function WeekPage() {
     console.log(statusUpdated);
     const freqList = weekLogs?.map((habitLogs) =>
       habitLogs.reduce(
-        (acc, log, index) => acc + (log.habitId.weekFrequency[index] ? 1 : 0),
+        (acc, log, index) => acc + (log.habitId?.weekFrequency[index] ? 1 : 0),
         0
       )
     );
@@ -71,7 +71,7 @@ export default function WeekPage() {
       const count = habitLogs.reduce((acc, log, idx) => {
         return (
           acc +
-          (log.status === "completed" && log.habitId.weekFrequency[idx] ? 1 : 0)
+          (log.status === "completed" && log?.habitId?.weekFrequency[idx] ? 1 : 0)
         );
       }, 0);
       return { count };
@@ -100,7 +100,7 @@ export default function WeekPage() {
   useEffect(() => {
     const startDate = new Date(weekStart);
     (async () => {
-      await logFetcherRef.current.prefetchMonthSurroundings(startDate);
+      await logFetcherRef.current?.prefetchMonthSurroundings(startDate);
       await loadAllWeekLogs();
     })();
   }, [weekStart, loadAllWeekLogs, statusUpdated]);
@@ -111,7 +111,7 @@ export default function WeekPage() {
   useEffect(() => {
     (async () => {
       await logFetcherRef.current.resetAllData();
-      await logFetcherRef.current.prefetchMonthSurroundings(selectedDate);
+      await logFetcherRef.current?.prefetchMonthSurroundings(selectedDate);
       await loadAllWeekLogs();
     })();
   }, [newHabitAdded]);
