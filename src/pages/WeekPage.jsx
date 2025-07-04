@@ -208,7 +208,7 @@ export default function WeekPage() {
             {weeklyLogs.length > 0 &&
             completedList.length === weeklyLogs.length ? (
               weeklyLogs
-                .sort((a, b) => a[0].habitId.order - b[0].habitId.order)
+                .sort((a, b) => a[0]?.habitId.order - b[0]?.habitId.order)
                 .map((habit, i) =>
                   displayType === "bar" ? (
                     //HORIZONTAL_BAR

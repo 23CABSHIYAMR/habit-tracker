@@ -203,7 +203,7 @@ export default function AppLayout() {
             {Array.isArray(logData) &&
               logData.length > 0 &&
               logData
-                .sort((a, b) => a.habitId.order - b.habitId.order)
+                .sort((a, b) => a?.habitId?.order - b?.habitId?.order)
                 .map((habits, i) => {
                   return (
                     <DailyHabit

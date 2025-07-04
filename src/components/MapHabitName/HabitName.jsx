@@ -9,7 +9,7 @@ export default function HabitName({ logData=[] }) {
       {Array.isArray(logData) &&
         logData.length > 0 &&
         logData
-        .sort((a,b)=>a.habitId.order-b.habitId.order)
+        .sort((a,b)=>a?.habitId?.order-b?.habitId?.order)
         .map((eachHabit, i) => {
           const habit = eachHabit?.habitId;
           if (!habit) {console.log("missing habit log for:",eachHabit);return null};

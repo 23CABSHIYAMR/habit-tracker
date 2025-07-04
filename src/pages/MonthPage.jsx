@@ -148,7 +148,7 @@ export default function MonthPage() {
                 <section className=" h-full col-span-7 grid content-between">
                   {displayType === "bar" &&
                     monthLog
-                      .sort((a, b) => a[0].habitId.order - b[0].habitId.order)
+                      .sort((a, b) => a[0]?.habitId.order - b[0]?.habitId.order)
                       .map((habit, i) => (
                         //HORIZONTAL_BAR
                         <div
