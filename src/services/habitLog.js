@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE = "http://localhost:5000/habitLog";
+const BASE = "https://habit-tracker-server-bx61.onrender.com/habitLog";
 const initializedMonths = new Set();
 
 export const getLogForDate = async (date) => {

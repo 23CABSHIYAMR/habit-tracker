@@ -7,6 +7,6 @@ export default defineConfig({
   plugins: [react(),   tailwindcss(),],
   server: {
     proxy: {
-      '/api': 'http://localhost:5000',
+      '/api': 'https://habit-tracker-server-bx61.onrender.com',
     }
 }})
