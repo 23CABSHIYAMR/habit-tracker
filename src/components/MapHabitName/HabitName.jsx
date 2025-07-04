@@ -1,7 +1,7 @@
 import React from "react";
 import { FaCircle } from "react-icons/fa6";
 import { RiCloseFill } from "react-icons/ri";
-export default function HabitName({ logData }) {
+export default function HabitName({ logData=[] }) {
   console.log("habitName=>",logData)
   return (
     <div className="w-full col-span-2 grid content-between  items-center gap-9 ">
