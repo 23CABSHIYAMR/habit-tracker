@@ -110,7 +110,7 @@ export default function WeekPage() {
   }, [selectedDate]);
   useEffect(() => {
     (async () => {
-      await logFetcherRef.current.resetAllData();
+      logFetcherRef.current.resetAllData();
       await logFetcherRef.current?.prefetchMonthSurroundings(selectedDate);
       await loadAllWeekLogs();
     })();

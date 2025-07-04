@@ -33,8 +33,10 @@ export default function AppLayout() {
   const [newHabitAdded, setnewHabitAdded] = useState(false);
 
   const [statusUpdated, setStatusUpdated] = useState(IsoDate(today));
-  const triggerFetch = () => {
-        logFetcherRef.current.resetAllData();
+  const triggerFetch = async() => {
+    logFetcherRef.current.resetAllData();
+     await logFetcherRef.current?.prefetchMonthSurroundings(selectedDate);
+
     setnewHabitAdded((prev) => !prev);
   };
   const [slideInMenu, setSlideInMenu] = useState(false);
