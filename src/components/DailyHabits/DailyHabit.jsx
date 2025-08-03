@@ -14,7 +14,7 @@ export default function DailyHabit({ habits = [], updateNewStatus, dayIndex,hand
     console.log(habits.habitId.habitName, deleteBtn);
   }, [deleteBtn]);
   const inActive =
-    !habits.habitId?.weekFrequency[new Date(habits.date).getDay()];
+    !habits.habitId?.weekFrequency[new Date(habits.date).getDay()-1];
   const toggleStatus = useCallback(() => {
     const oldStatus = habits.status;
     updateNewStatus(

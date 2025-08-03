@@ -1,37 +1,49 @@
-import React from 'react'
-import AppLayout from './layouts/AppLayout/AppLayout'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import WeekPage from './pages/WeekPage'
-import MonthPage from './pages/MonthPage'
-import YearPage from './pages/YearPage'
-import AllTimePage from './pages/AllTimePage'
+import React from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import AppLayout from "./layouts/AppLayout/AppLayout";
+import WeekPage from "./pages/WeekPage";
+import MonthPage from "./pages/MonthPage";
+import YearPage from "./pages/YearPage";
+import AllTimePage from "./pages/AllTimePage";
+import AuthPage from "./authUser/authPage/AuthPage";
+import { useAuth } from "./authUser/AuthContext";
 
-const App=()=> {
-  const router=createBrowserRouter([
+const PrivateRoute = ({ element }) => {
+  const { user } = useAuth();
+  return user ? element : <AuthPage />;
+};
+
+const App = () => {
+  const router = createBrowserRouter([
     {
-      path:'/'
-      ,element:<AppLayout/>,
-      errorElement:<WeekPage/>
-      ,children:[
+      path: "/",
+      element: <AppLayout />,
+      children: [
         {
-          index:true,
-          element:<WeekPage/>
+          index: true,
+          element: <AuthPage />,
         },
         {
-          path:'Month',
-          element:<MonthPage/>
+          path: "Week",
+          element: <PrivateRoute element={<WeekPage />} />,
         },
         {
-          path:'Year',
-          element:<YearPage/>
+          path: "Month",
+          element: <PrivateRoute element={<MonthPage />} />,
         },
         {
-          path:'All-Time',
-          element:<AllTimePage/>
+          path: "Year",
+          element: <PrivateRoute element={<YearPage />} />,
         },
-      ]
-    }
-  ])
-  return <RouterProvider router={router}/>
-}
+        {
+          path: "All-Time",
+          element: <PrivateRoute element={<AllTimePage />} />,
+        },
+      ],
+    },
+  ]);
+
+  return <RouterProvider router={router} />;
+};
+
 export default App;

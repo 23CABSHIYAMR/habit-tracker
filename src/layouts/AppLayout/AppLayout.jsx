@@ -6,6 +6,8 @@ import React, {
   useRef,
 } from "react";
 
+import { useAuth } from "./authUser/AuthContext";
+
 //utils & constants
 import { changeDate } from "../../utils/dateUtils";
 import { IsoDate, WMDFormat } from "../../utils/dateFormat";
@@ -25,6 +27,9 @@ import { Outlet } from "react-router-dom";
 import { deleteHabit } from "../../services/habitData";
 import { getLogForDate } from "../../services/habitLog";
 export default function AppLayout() {
+
+  const {user}=useAuth();
+
   const [selectedDate, setSelectedDate] = useState(new Date(today));
   const isTodayOrFuture = useMemo(() => {
     return IsoDate(selectedDate) >= IsoDate(today);
@@ -131,8 +136,7 @@ export default function AppLayout() {
       )}
       <div className="w-full grid grid-cols-7 py-8 px-10 gap-2 sm:gap-4">
         <div className="w-full text-left md:col-span-5 col-span-7 space-y-1.5 px-2">
-          <Header />
-
+          <Header username={user}/>
           {/* NavList and Add Habit Section*/}
           <section className="w-full h-fit flex justify-between items-center my-4">
             {/* nav section */}
