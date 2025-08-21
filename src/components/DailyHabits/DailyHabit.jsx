@@ -10,11 +10,12 @@ import { useState, useEffect } from "react";
 export default function DailyHabit({ habits = [], updateNewStatus, dayIndex,handleDeleteHabit }) {
   const [deleteBtn, setDeleteBtn] = useState(false);
 
+  console.log()
   useEffect(() => {
     console.log(habits.habitId.habitName, deleteBtn);
   }, [deleteBtn]);
   const inActive =
-    !habits.habitId?.weekFrequency[new Date(habits.date).getDay()-1];
+    !habits.habitId?.weekFrequency[new Date(habits.date).getDay()];
   const toggleStatus = useCallback(() => {
     const oldStatus = habits.status;
     updateNewStatus(
@@ -95,7 +96,7 @@ export default function DailyHabit({ habits = [], updateNewStatus, dayIndex,hand
               ) : (
                 <></>
               )}
-              <div className="relative">
+              <div className="relative pointer-events-auto">
                 <div onClick={() => setDeleteBtn((prev) => !prev)}>
                   {deleteBtn ? (
                     <RiCloseFill />

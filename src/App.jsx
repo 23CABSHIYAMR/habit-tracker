@@ -1,49 +1,53 @@
 import React from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
 import AppLayout from "./layouts/AppLayout/AppLayout";
 import WeekPage from "./pages/WeekPage";
 import MonthPage from "./pages/MonthPage";
 import YearPage from "./pages/YearPage";
 import AllTimePage from "./pages/AllTimePage";
 import AuthPage from "./authUser/authPage/AuthPage";
-import { useAuth } from "./authUser/AuthContext";
+import { AuthProvider, useAuth } from "./authUser/AuthContext"; 
 
-const PrivateRoute = ({ element }) => {
+// Private route wrapper
+const PrivateRoute = ({ children }) => {
   const { user } = useAuth();
-  return user ? element : <AuthPage />;
+  return user ? children : <Navigate to="/auth" replace />;
 };
 
 const App = () => {
   const router = createBrowserRouter([
+    // Auth route
+    {
+      path: "/auth",
+      element: <AuthPage />,
+    },
+    // Logged-in routes
     {
       path: "/",
-      element: <AppLayout />,
+      element: (
+        <PrivateRoute>
+          <AppLayout />
+        </PrivateRoute>
+      ),
       children: [
-        {
-          index: true,
-          element: <AuthPage />,
-        },
-        {
-          path: "Week",
-          element: <PrivateRoute element={<WeekPage />} />,
-        },
-        {
-          path: "Month",
-          element: <PrivateRoute element={<MonthPage />} />,
-        },
-        {
-          path: "Year",
-          element: <PrivateRoute element={<YearPage />} />,
-        },
-        {
-          path: "All-Time",
-          element: <PrivateRoute element={<AllTimePage />} />,
-        },
+        { path: "Week", element: <WeekPage /> },
+        { path: "Month", element: <MonthPage /> },
+        { path: "Year", element: <YearPage /> },
+        { path: "All-Time", element: <AllTimePage /> },
+        { index: true, element: <Navigate to="/Week" replace /> }, // default redirect after login
       ],
+    },
+    {
+      path: "*",
+      element: <Navigate to="/" replace />,
     },
   ]);
 
-  return <RouterProvider router={router} />;
+  return (
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
+  );
 };
 
 export default App;

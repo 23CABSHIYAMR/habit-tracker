@@ -15,6 +15,7 @@ import WeekGrid from "../layouts/WeekGrid/WeekGrid";
 import { getWeekRange, changeDate, getWeekStart } from "../utils/dateUtils";
 import { IsoDate, WMDFormat } from "../utils/dateFormat";
 import { dayNames } from "../constants/constants";
+
 export default function WeekPage() {
   const {
     newHabitAdded,
@@ -25,6 +26,7 @@ export default function WeekPage() {
     setStatusUpdated,
     selectedDate,
   } = useOutletContext() ?? {};
+
   const logFetcherRef = useRef(logFetcher);
 
   const [weekStart, setWeekStart] = useState(() => getWeekStart());
@@ -37,7 +39,6 @@ export default function WeekPage() {
       new Date(weekStart).toISOString().split("T")[0] ===
         thisStart.toISOString().split("T")[0]
     );
-    console.log("status update should be active? ", isThisWeek);
     setWeeklyLogs([]);
     setProgress(0);
   }, [weekStart]);
@@ -60,13 +61,10 @@ export default function WeekPage() {
     console.log("response recieved=>", weekLogs);
     setWeeklyLogs(weekLogs);
 
-    console.log(statusUpdated);
-    const freqList = weekLogs?.map((habitLogs) =>
-      habitLogs.reduce(
-        (acc, log, index) => acc + (log.habitId?.weekFrequency[index] ? 1 : 0),
-        0
-      )
-    );
+    const freqList = weekLogs?.map(
+  (habitLogs) => habitLogs[0]?.habitId?.weeklyTarget
+);
+
     const completedList = weekLogs?.map((habitLogs) => {
       const count = habitLogs.reduce((acc, log, idx) => {
         return (

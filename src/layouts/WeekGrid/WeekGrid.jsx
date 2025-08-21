@@ -34,7 +34,9 @@ function toggleStatus(log, e) {
           return timeA - timeB;
         })
         .map((log, i) => 
-          log.habitId?.weekFrequency[new Date(log.date).getDay()] ? (
+          log.habitId?.weekFrequency[new Date(log.date).getDay()] ?
+        
+        (
             <button
               key={`${log.habitId._id}-${log.date}-${i}`}
               type="button"
@@ -46,12 +48,16 @@ function toggleStatus(log, e) {
                 log.status === "completed" ? "" : "opacity-40 bg-gray-400"
               }`}
               onClick={(e) => toggleStatus(log,e)}
-            ></button>
+            >
+              {console.log(log.date,"=>",log.habitId.weekFrequency[new Date(log.date).getDay()])}
+            </button>
           ) : (
             <div
-              className="w-7 h-7 pointer-events-none"
-              key={`${log.habitId._id}-${log.date}-${i}`}
-            ></div>
+            className="w-7 h-7 pointer-events-none"
+            key={`${log.habitId._id}-${log.date}-${i}`}
+            >
+              {console.log(log.habitId.weekFrequency[new Date(log.date).getDay()])}
+            </div>
           )
         )}
     </>

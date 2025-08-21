@@ -6,7 +6,6 @@ import React, {
   useRef,
 } from "react";
 
-import { useAuth } from "./authUser/AuthContext";
 
 //utils & constants
 import { changeDate } from "../../utils/dateUtils";
@@ -26,69 +25,60 @@ import HabitAddedMsg from "../../components/HabitAddedMsg/HabitAddedMsg";
 import { Outlet } from "react-router-dom";
 import { deleteHabit } from "../../services/habitData";
 import { getLogForDate } from "../../services/habitLog";
+
+
 export default function AppLayout() {
 
-  const {user}=useAuth();
-
   const [selectedDate, setSelectedDate] = useState(new Date(today));
-  const isTodayOrFuture = useMemo(() => {
-    return IsoDate(selectedDate) >= IsoDate(today);
-  }, [selectedDate]);
-
+  
   const [newHabitAdded, setnewHabitAdded] = useState(false);
-
-  const [statusUpdated, setStatusUpdated] = useState(IsoDate(today));
   const triggerFetch = async() => {
     logFetcherRef.current.resetAllData();
-     await logFetcherRef.current?.prefetchMonthSurroundings(selectedDate);
+    await logFetcherRef.current?.prefetchMonthSurroundings(selectedDate);
 
     setnewHabitAdded((prev) => !prev);
   };
+  
+  const [statusUpdated, setStatusUpdated] = useState(IsoDate(today));
   const [slideInMenu, setSlideInMenu] = useState(false);
   const toggleMenu = () => setSlideInMenu((prev) => !prev);
-
+  
   const logFetcherRef = useRef(new LogFetcher());
+  
+const [logData, setLogData] = useState([]);
 
-  useEffect(() => {
-    const dateStr = selectedDate.toISOString().slice(0, 7);
+useEffect(() => {
+  const fetchLogs = async () => {
+    const dateStr = IsoDate(selectedDate);
+
     if (!logFetcherRef.current.prefetchedMonths.has(dateStr)) {
-      logFetcherRef.current?.prefetchMonthSurroundings(selectedDate);
+      await logFetcherRef.current.prefetchMonthSurroundings(selectedDate);
     }
-  }, [selectedDate]);
 
-  const [logData, setLogData] = useState([]);
-  useEffect(() => {
-    const fetchLogs = async () => {
+    //if (!logData.length || IsoDate(selectedDate) === IsoDate(statusUpdated)) {
       const data = await logFetcherRef.current.getLogsByDate(selectedDate);
       setLogData(data);
-    };
-    fetchLogs();
-  }, [selectedDate]);
-  useEffect(() => {
-    const updateIfNeeded = async () => {
-      if (IsoDate(selectedDate) === IsoDate(statusUpdated)) {
-        const data = await logFetcherRef.current.getLogsByDate(selectedDate);
-        setLogData(data);
-      }
-    };
-    updateIfNeeded();
-  }, [statusUpdated, selectedDate]);
+      console.log("log Data received",logData,dateStr)
+  };
+  fetchLogs();
+//}, [statusUpdated,selectedDate]);
+}, [selectedDate]);
+
   useEffect(() => {
     logFetcherRef.current.resetAllData();
     (async () => {
-      await logFetcherRef.current?.prefetchMonthSurroundings(selectedDate);
+      await logFetcherRef?.current?.prefetchMonthSurroundings(selectedDate);
       const newData = await getLogForDate(selectedDate);
       setLogData(newData);
     })();
   }, [newHabitAdded]);
-
+  
   const updateNewStatus = useCallback(
     async (habit, oldStatus, status) => {
       if (!habit || !habit.habitId || !habit.date) {
         console.log("failed to update habit status");
         return;
       }
-
       const updatedLog = await logFetcherRef.current.updateDayLog(
         habit.habitId._id,
         habit.date,
@@ -97,7 +87,7 @@ export default function AppLayout() {
         habit.streak
       );
       console.log("Db response=>", updatedLog);
-
+      
       if (habit.date === IsoDate(selectedDate)) {
         const newData = await logFetcherRef.current.getLogsByDate(selectedDate);
         setLogData(newData);
@@ -105,8 +95,7 @@ export default function AppLayout() {
     },
     [selectedDate]
   );
-  const [addedHabitDetails, setHabitDetails] = useState({});
-
+  
   const handleStatusUpdate = useCallback(
     async (habits, oldStatus, newStatus) => {
       await updateNewStatus(habits, oldStatus, newStatus);
@@ -114,15 +103,21 @@ export default function AppLayout() {
     },
     [updateNewStatus]
   );
-
+  
   const handleDeleteHabit = useCallback(async (habits) => {
+    //delete
     await deleteHabit(habits.habitId._id);
-    logFetcherRef.current.resetAllData();
-
-    await logFetcherRef.current?.prefetchMonthSurroundings(selectedDate);
-    const newData = await logFetcherRef.current.getLogsByDate(selectedDate);
+    //reset
+    triggerFetch();
+    //update new data
+    const newData = await getLogForDate(selectedDate);
     setLogData(newData);
   }, []);
+  
+  const isTodayOrFuture = useMemo(() => {
+    return IsoDate(selectedDate) >= IsoDate(today);
+  }, [selectedDate]);
+  const [addedHabitDetails, setHabitDetails] = useState({});
 
   return (
     <div className="w-full h-[100vh] bg-white ">
@@ -136,7 +131,7 @@ export default function AppLayout() {
       )}
       <div className="w-full grid grid-cols-7 py-8 px-10 gap-2 sm:gap-4">
         <div className="w-full text-left md:col-span-5 col-span-7 space-y-1.5 px-2">
-          <Header username={user}/>
+          <Header />
           {/* NavList and Add Habit Section*/}
           <section className="w-full h-fit flex justify-between items-center my-4">
             {/* nav section */}

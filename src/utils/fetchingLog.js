@@ -24,20 +24,7 @@ class LogFetcher {
   async updateDayLog(habitId, date, oldStatus, status, streak) {
     const dateObj = new Date(date);
 
-    // Step 1: Check previous day's streak
-    const prevDate = new Date(dateObj);
-    prevDate.setDate(prevDate.getDate() - 1);
-    const prevDateLog = await this.getLogsByDate(IsoDate(prevDate));
-    streak = prevDateLog?.streak || 0;
 
-    // Step 2: Apply current log streak logic
-    if (status === "completed") {
-      streak += 1;
-    } else if (status === "pending" && oldStatus === "completed") {
-      streak = Math.max(0, streak - 1);
-    } else {
-      streak = 0;
-    }
 
     // Step 3: Update the current log
     const updatedLog = await updateDayLog(habitId, date, status, streak);
@@ -64,60 +51,6 @@ class LogFetcher {
         }
         return habit;
       });
-    }
-
-    // Step 5: Propagate streak forward
-    let nextDate = new Date(dateObj);
-    nextDate.setDate(nextDate.getDate() + 1);
-
-    while (true) {
-      const nextDateISO = IsoDate(nextDate);
-      const nextDateLog = await this.getLogsByDate(nextDateISO);
-      if (!nextDateLog || nextDateLog.status !== "completed") break;
-
-      const dayIndex = nextDate.getDay(); // Sunday = 0
-      const weekFrequency = nextDateLog?.habitId?.weekFrequency;
-      if (!weekFrequency || !weekFrequency[dayIndex]) break;
-
-      streak += 1;
-
-      // Update next day log with incremented streak
-      await updateDayLog(
-        nextDateLog.habitId._id,
-        nextDateISO,
-        "completed",
-        streak
-      );
-
-      // Update cache for next date
-      const nextMonthKey = getMonthKey(nextDate);
-      const nextWeekKey = getWeekKey(nextDate);
-
-      if (this.monthDataCache[nextMonthKey]) {
-        this.monthDataCache[nextMonthKey] = this.monthDataCache[
-          nextMonthKey
-        ].map((log) =>
-          log?.habitId?._id === habitId && log?.date === nextDateISO
-            ? { ...log, streak }
-            : log
-        );
-      }
-
-      if (this.weekDataCache[nextWeekKey]) {
-        this.weekDataCache[nextWeekKey] = this.weekDataCache[nextWeekKey].map(
-          (habit) => {
-            if (habit[0].habitId._id === habitId) {
-              return habit.map((eachLog) =>
-                eachLog.date === nextDateISO ? { ...eachLog, streak } : eachLog
-              );
-            }
-            return habit;
-          }
-        );
-      }
-
-      // Move forward one more day
-      nextDate.setDate(nextDate.getDate() + 1);
     }
     return updatedLog;
   }
@@ -155,15 +88,17 @@ class LogFetcher {
       await this?.prefetchMonthSurroundings(weekStart);
       const { raw = [] } = await getLogsForWeek(getWeekKey(weekStart));
       const grouped = this.groupLogsByHabit(raw);
+      console.log(grouped);
       return grouped;
     }
-
+    
     const dateSet = new Set(dateArray.map((d) => IsoDate(d)));
     const monthKey = getMonthKey(weekStart);
     const logs = this.monthDataCache[monthKey] || [];
-
+    
     const weekLog = logs.filter((log) => dateSet.has(IsoDate(log.date)));
     const grouped = this.groupLogsByHabit(weekLog);
+    console.log(grouped);
     return grouped;
   }
 

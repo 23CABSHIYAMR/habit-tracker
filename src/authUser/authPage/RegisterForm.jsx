@@ -1,9 +1,9 @@
 import { useState } from "react";
 import axios from "axios";
-import { useAuth } from "./AuthContext";
+import { useAuth } from "../AuthContext";
 import { useNavigate } from "react-router-dom";
 
-const RegisterForm = () => {
+const RegisterForm = ({switchToLogin}) => {
   const { login } = useAuth();
 
   const [formData, setFormData] = useState({
@@ -11,6 +11,7 @@ const RegisterForm = () => {
     email: "",
     password: "",
   });
+
   const [error, setError] = useState("");
   const navigate=useNavigate();
   const handleChange = (e) => {
@@ -25,18 +26,23 @@ const RegisterForm = () => {
     setError("");
 
     try {
-      const res = await axios.post("/api/users/register", formData);
-      login(res.data); 
+      const res = await axios.post("http://localhost:5000/users/register", formData);
+      login(res.data);
       navigate("/Week");
-      // auto login after registration
-    } catch (err) {
+    }
+    catch (err) {
+      console.log(err);
       setError(err.response?.data?.message || "Registration failed");
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+    <form 
+    onSubmit={handleSubmit} 
+    style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
+    >
       <input
+        className=" bg-gray-300 p-2 rounded-b-sm" 
         type="text"
         name="name"
         placeholder="Name"
@@ -45,6 +51,7 @@ const RegisterForm = () => {
         required
       />
       <input
+        className=" bg-gray-300 p-2 rounded-b-sm" 
         type="email"
         name="email"
         placeholder="Email"
@@ -53,6 +60,7 @@ const RegisterForm = () => {
         required
       />
       <input
+        className=" bg-gray-300 p-2 rounded-b-sm" 
         type="password"
         name="password"
         placeholder="Password (min 6 chars)"
@@ -61,8 +69,26 @@ const RegisterForm = () => {
         required
       />
       {error && <p style={{ color: "red" }}>{error}</p>}
-      <button type="submit">Register</button>
-    </form>
+      <button 
+      type="submit" 
+      className=" bg-blue-300 p-2 text-white"
+      >
+      Register
+      </button>
+
+      <div className="relative flex items-center w-[100%] my-6">
+        <div className="flex-grow border-t border-gray-300"></div>
+        <span className="mx-4 text-sm text-gray-500 font-medium">
+          OR
+        </span>
+        <div className="flex-grow border-t border-gray-300"></div>
+      </div>
+
+      <span>
+        Already have a account?
+        <button type="button" onClick={switchToLogin}>Log In?</button>
+      </span>
+    </form> 
   );
 };
 
